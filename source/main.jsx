@@ -1,5 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Comp from './components/Comp.jsx';
+import Machine from './components/Comp.jsx';
 
-ReactDOM.render(<Comp />, document.getElementById('main'));
+ReactDOM.render(<Machine />, document.getElementById('main'));

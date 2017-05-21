@@ -20802,11 +20802,11 @@ module.exports = traverseAllChildren;
 module.exports = require('./lib/React');
 
 },{"./lib/React":158}],182:[function(require,module,exports){
-'use strict';
+"use strict";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -20818,30 +20818,78 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Comp = function (_React$Component) {
-    _inherits(Comp, _React$Component);
+var Machine = function (_React$Component) {
+  _inherits(Machine, _React$Component);
 
-    function Comp(props) {
-        _classCallCheck(this, Comp);
+  function Machine(props) {
+    _classCallCheck(this, Machine);
 
-        return _possibleConstructorReturn(this, (Comp.__proto__ || Object.getPrototypeOf(Comp)).call(this, props));
-    }
+    var _this = _possibleConstructorReturn(this, (Machine.__proto__ || Object.getPrototypeOf(Machine)).call(this, props));
 
-    _createClass(Comp, [{
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'div',
-                null,
-                'Example'
-            );
+    _this.generateQuote = _this.generateQuote.bind(_this);
+    _this.quote = "Click the button";
+    _this.author = "";
+    _this.tweet = "";
+    return _this;
+  }
+
+  _createClass(Machine, [{
+    key: "generateQuote",
+    value: function generateQuote() {
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+          var result = JSON.parse(xmlhttp.response);
+          this.quote = result.quote;
+          this.author = result.author;
+          this.tweet = "\"" + this.quote + "\" " + this.author;
+          this.setState({});
         }
-    }]);
+      }.bind(this);
+      xmlhttp.open("POST", "https://andruxnet-random-famous-quotes.p.mashape.com/?cat=famous&count=1", true);
+      xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xmlhttp.setRequestHeader("X-Mashape-Key", "opBQ5gr4BAmsh4jyZgwSkckTYIBNp1bPRw3jsnxn81PvkuHAI1");
+      xmlhttp.setRequestHeader("Accept", "application/json");
+      xmlhttp.send();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        { className: "board" },
+        _react2.default.createElement(
+          "p",
+          { className: "quote" },
+          "\"" + this.quote + "\""
+        ),
+        _react2.default.createElement(
+          "p",
+          { className: "author" },
+          this.author
+        ),
+        _react2.default.createElement(
+          "button",
+          null,
+          _react2.default.createElement(
+            "a",
+            { className: "twitter-share-button twit", href: "https://twitter.com/intent/tweet?text=" + this.tweet, target: "_blank" },
+            _react2.default.createElement("img", { src: "https://image.ibb.co/buhydF/3.png", alt: "tweet-icon" })
+          )
+        ),
+        _react2.default.createElement(
+          "button",
+          { className: "start", onClick: this.generateQuote },
+          "Quote"
+        )
+      );
+    }
+  }]);
 
-    return Comp;
+  return Machine;
 }(_react2.default.Component);
 
-module.exports = Comp;
+module.exports = Machine;
 
 },{"react":181}],183:[function(require,module,exports){
 'use strict';
